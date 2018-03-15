@@ -828,13 +828,23 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
+	if (nHeight == 2)
+	{
+		int64 nSubsidy = 1000000000 * COIN;
+		return nSubsidy + nFees;
+	} else if(nHeight > 50000)
+	{
+		int64 nSubsidy = (1 / 10000) * COIN;
+		return nSubsidy + nFees;
+	}else
+	{
     int64 nSubsidy = 5 * COIN;
-
     return nSubsidy + nFees;
+    }
 }
 
-static const int64 nTargetTimespan = 1 * 24 * 60 * 60; // likecoin: 1 days
-static const int64 nTargetSpacing = 30; // likecoin: 1 minute blocks
+static const int64 nTargetTimespan = 1 * 60; // likecoin: 1 days
+static const int64 nTargetSpacing = 1 * 15; // likecoin: 1 minute blocks
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 // Thanks: Balthazar for suggesting the following fix
@@ -921,8 +931,8 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     else
         nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/4)
-        nActualTimespan = nTargetTimespan/4;
+    if (nActualTimespan < nTargetTimespan/16)
+        nActualTimespan = nTargetTimespan/16;
     if (nActualTimespan > nTargetTimespan*4)
         nActualTimespan = nTargetTimespan*4;
 

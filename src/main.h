@@ -547,7 +547,7 @@ public:
     {
         // Large (in bytes) low-priority (new, small-coin) transactions
         // need a fee.
-        return dPriority > COIN * 2880 / 250; // 720 blocks found a day.
+        return dPriority > COIN * 5760 / 250; // 720 blocks found a day.
     }
 
     int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=true, enum GetMinFee_mode mode=GMF_BLOCK) const
