@@ -172,9 +172,9 @@ int main(int argc, char *argv[])
     app.setOrganizationName("likecoin");
     app.setOrganizationDomain("we-have-no-domain-yet.nex");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("likecoin-qt-testnet");
+        app.setApplicationName("pointcoin-qt-testnet");
     else
-        app.setApplicationName("likecoin-qt");
+        app.setApplicationName("pointcoin-qt");
 
     // ... then GUI settings:
     OptionsModel optionsModel;

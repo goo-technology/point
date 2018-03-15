@@ -15,7 +15,7 @@ class QAbstractItemView;
 QT_END_NAMESPACE
 class SendCoinsRecipient;
 
-/** Utility functions used by the likecoin-qt UI.
+/** Utility functions used by the pointcoin-qt UI.
  */
 namespace GUIUtil
 {

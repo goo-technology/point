@@ -1,18 +1,25 @@
-Like
-
-Like es una moneda que será utilizada para un programa de lealtad y recompensas. Ha sido creada por goo! Technology, empresa mexicana de servicios tecnológicos (http://gootechnology.com).
-
-Cualquier duda o comentario puedes contactarnos en info@gootechnology.com.
+Point
+Es una criptomoneda creada con el objetivo de impulsar la adpción de las criptomonedas por el público general.
+Se ha preminado una fuerte cantidad de monedas que serán distribuidas entre el público general atravéz de un programa de recompenzas que podrá ser operado por cualquier negocio que desee participar así como atravéz de la cartera para smartphones.
 
 Detalles de la moneda
 
 	* Algoritmo PoW: Scrypt
-	* Recompensa por bloque: 10 LIKE
-	* Tiempo por bloque: 1 minuto
-	* Reajuste de dificultad: 1 minuto
+	* Recompensa por bloque:
+	  1,000,000,000 en el bloque 2
+	  5 hasta el bloque 50,000
+	  a partir del bloque 50,001 (altura del bloque / 100,000)
+	* Tiempo por bloque: 15 segundos
+	* Reajuste de dificultad: cada 4 bloques
 	* Starting difficulty: 0.00024414
-	* Capacidad máxima: 60 millones
+	* Tope de monedas: 90,000 millones
 
+USO DEL PREMINADO
+
+	* El preminado será utilizado para:
+	* Entregar 1,000 monedas a cada persona con smartphone (entrega única)
+	* Entregar hasta 100,000 monedas a negocios afiliados al programa de fidelización de clientes PointsR.Cool (entrega única)
+	* Cubrir gastos operativos de los proyectos Point
 
 
 Development process

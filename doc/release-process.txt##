@@ -1,7 +1,7 @@
 * update translations (ping tcatm on IRC for now)
 
 * update (commit) version in sources
-  likecoin-qt.pro
+  pointcoin-qt.pro
   src/version.h
   share/setup.nsi
   doc/README*
@@ -39,7 +39,7 @@
    ./bin/gbuild ../likecoin/contrib/gitian-descriptors/deps-win32.yml
    cp build/out/likecoin-deps-0.0.3.zip inputs/
 
-  * Build pointcoind and likecoin-qt on Linux32, Linux64, and Win32:
+  * Build pointcoind and pointcoin-qt on Linux32, Linux64, and Win32:
    ./bin/gbuild --commit likecoin=v${VERSION} ../likecoin/contrib/gitian-descriptors/gitian.yml
    ./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../likecoin/contrib/gitian-descriptors/gitian.yml
    pushd build/out
@@ -75,11 +75,11 @@
   See this blog post for how Gavin set up his build environment to build the OSX
   release; note that a patched version of macdeployqt is not needed anymore, as
   the required functionality and fixes are implemented directly in macdeployqtplus:
-    http://gavintech.blogspot.com/2011/11/deploying-likecoin-qt-on-osx.html
+    http://gavintech.blogspot.com/2011/11/deploying-pointcoin-qt-on-osx.html
   Gavin also had trouble with the macports py27-appscript package; he
   ended up installing a version that worked with: /usr/bin/easy_install-2.7 appscript
 
-  qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 likecoin-qt.pro
+  qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 pointcoin-qt.pro
   make
   export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
   T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
