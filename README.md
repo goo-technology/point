@@ -22,7 +22,7 @@ Developers work in their own trees, then submit pull requests when
 they think their feature or bug fix is ready.
 
 If it is a simple/trivial/non-controversial change, then one of the
-likecoin development team members simply pulls it.
+pointcoin development team members simply pulls it.
 
 If it is a more complicated or potentially controversial
 change, then the patch submitter will be asked to start a
@@ -36,8 +36,8 @@ or are controversial.
 
 The master branch is regularly built and tested, but is not guaranteed
 to be completely stable. Tags are regularly created to indicate new
-official, stable release versions of Likecoin. If you would like to
-help test the Likecoin core, please contact info@gootechnology.com
+official, stable release versions of Point. If you would like to
+help test the Point core, please contact info@gootechnology.com
 
 
 Feature branches are created when there are major new features being

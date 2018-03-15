@@ -6,7 +6,7 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE BOOST_THREAD_PROV
 CONFIG += no_include_pwd
 
 # UNCOMMENT THIS SECTION TO BUILD ON WINDOWS
-# Change paths if needed, these use the likecoin/deps.git repository locations
+# Change paths if needed, these use the pointcoin/deps.git repository locations
 
 #windows:LIBS += -lshlwapi
 #LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
@@ -334,7 +334,7 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/bitcoin.icns
-macx:TARGET = "likecoin-qt"
+macx:TARGET = "pointcoin-qt"
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH

@@ -50,7 +50,7 @@ map<uint256, map<uint256, CDataStream*> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "likecoin Signed Message:\n";
+const string strMessageMagic = "pointcoin Signed Message:\n";
 
 double dHashesPerSec;
 int64 nHPSTimerStart;
@@ -839,8 +839,8 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     }
 }
 
-static const int64 nTargetTimespan = 1 * 60; // likecoin: 1 minute
-static const int64 nTargetSpacing = 1 * 15; // likecoin: 15 seconds blocks
+static const int64 nTargetTimespan = 1 * 60; // pointcoin: 1 minute
+static const int64 nTargetSpacing = 1 * 15; // pointcoin: 15 seconds blocks
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 // Thanks: Balthazar for suggesting the following fix
@@ -1184,7 +1184,7 @@ bool CTransaction::ConnectInputs(MapPrevTx inputs,
 {
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
-    // fMiner is true when called from the internal likecoin miner
+    // fMiner is true when called from the internal pointcoin miner
     // ... both are false when called from CTransaction::AcceptToMemoryPool
     if (!IsCoinBase())
     {
@@ -1931,7 +1931,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "likecoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        uiInterface.ThreadSafeMessageBox(strMessage, "pointcoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         StartShutdown();
         return false;
     }

@@ -45,13 +45,13 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("likecoin");
-    case mBTC: return QString("millilikecoin (1 / 1,000)");
-    case uBTC: return QString("microlikecoin (1 / 1,000,000)");
+    case BTC: return QString("pointcoin");
+    case mBTC: return QString("millipointcoin (1 / 1,000)");
+    case uBTC: return QString("micropointcoin (1 / 1,000,000)");
     default: return QString("???");
     }
 }
-//a single unit (.00000001) of likecoin is called a "wander."
+//a single unit (.00000001) of pointcoin is called a "wander."
 qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)

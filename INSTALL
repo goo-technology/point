@@ -1,9 +1,9 @@
-Building Likecoin
+Building Point
 
-See doc/readme-qt.rst for instructions on building likecoin-qt,
+See doc/readme-qt.rst for instructions on building pointcoin-qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Likecoin.
+implementation of Point.
 
-See doc/build-*.txt for instructions on building likecoin,
+See doc/build-*.txt for instructions on building pointcoin,
 the intended-for-services, no-graphical-interface, reference
-implementation of Likecoin.
+implementation of Point.

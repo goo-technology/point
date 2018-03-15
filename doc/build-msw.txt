@@ -81,6 +81,6 @@ cp *.h miniupnpc/
 LikeCoin
 -------
 DOS prompt:
-cd \likecoin\src
+cd \pointcoin\src
 mingw32-make -f makefile.mingw
-strip likecoind.exe
+strip pointcoind.exe

@@ -15,4 +15,4 @@ apt-get install libqrencode-dev
 apt-get install qrencode
 qmake-qt4 "USE_QRCODE=1"
 make
-./likecoin-qt
+./pointcoin-qt
