@@ -826,10 +826,14 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-int64 static GetBlockValue(int nHeight, int64 nFees)
+int64 static GetBlockValue(int64 nHeight, int64 nFees)
 {
-	int64 blockNumber = (int64)nHeight;
-	int64 nSubsidy = blockNumber/100000 * COIN;
+	long divider = 100000;
+	float nSubsidy = nHeight/divider * COIN;
+	
+	printf("############ REWARD ###############3\n");
+    printf("POINT = %"PRI64d" Block = %"PRI64d" Divider = %"PRI64d"\n", nSubsidy, nHeight, divider);
+	
 	return nSubsidy + nFees;
 
 }
