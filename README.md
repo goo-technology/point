@@ -34,7 +34,7 @@ pointcoin development team members simply pulls it.
 If it is a more complicated or potentially controversial
 change, then the patch submitter will be asked to start a
 discussion (if they haven't already) on the mailing list:
-(mailing address for Like development list TBD).
+(mailing address for Point development list TBD).
 
 The patch will be accepted if there is broad consensus that it is a
 good thing.  Developers should expect to rework and resubmit patches
@@ -61,4 +61,4 @@ Issues with no commits will be given a similar warning, and closed after
 labeled 'stale'. 
 
 Requests to reopen closed pull requests and/or issues can be submitted to
-(mailing address for Like development list TBD).
+(mailing address for Point development list TBD).

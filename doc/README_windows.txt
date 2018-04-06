@@ -30,7 +30,7 @@ The software automatically finds other nodes to connect to.  You can
 enable Universal Plug and Play using a menu entry or set your firewall
 to forward port 9333 (TCP) to your computer so you can receive
 incoming connections.  Point works without incoming connections,
-but allowing incoming connections helps the Mexcoin network.
+but allowing incoming connections helps the Pointcoin network.
 
 See the bitcoin wiki at:
   https://en.bitcoin.it/wiki/Main_Page

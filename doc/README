@@ -1,4 +1,4 @@
-LikeCoin 1.0
+PointCoin 1.0
 
 Copyright (c) 2009-2012 Bitcoin Developers
 Copyright (c) 2011-2012 Litecoin Developers
@@ -13,7 +13,7 @@ cryptographic software written by Eric Young (eay@cryptsoft.com).
 
 Intro
 -----
-LikeCoin is a free open source peer-to-peer electronic token system that is
+PointCoin is a free open source peer-to-peer electronic token system that is
 completely decentralized, without the need for a central server or trusted
 parties.  Users hold the crypto keys to their own money and transact directly
 with each other, with the help of a P2P network to check for double-spending.
