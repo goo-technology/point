@@ -826,21 +826,49 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-int64 static GetBlockValue(int nHeight, int64 nFees)
+int64 static GetBlockValue(int nHeight, int64 nFees, int64 nLastBlockTx, int64 nLastBlockTotalVout)
 {	
-	if (nHeight == 2)
+        int64 nSubsidy = (nHeight/1000000) * COIN;
+        if (nHeight == 2)
 	{
 		int64 nSubsidy = 1000000000 * COIN;
 		return nSubsidy + nFees;
-	}else if (nHeight > 50000)
+	}else if (nHeight > 50000 && nHeight <= 1200000)
 	{
 		int64 nSubsidy = nHeight * 0.00001 * COIN;
 		return nSubsidy + nFees;
-	}else
+	}
+        else if(nHeight > 1200000)
+        {
+        //NUEVO ALGORITMO
+		if (nLastBlockTx <= 30)
+		{
+		    printf("\n\n********** RECOMPENSA LIMITADA A: %lu **********\n\n", nSubsidy);
+		    return nSubsidy + nFees;
+		}else if (nLastBlockTx > 30)
+		{
+		    if ((nLastBlockTotalVout/nLastBlockTx)<(nHeight/10000) && (nLastBlockTotalVout>(nHeight/100000)))
+		    {
+		        int64 nSubsidy = (nHeight/100000) * COIN;
+		        printf("\n\n********** RECOMPENSA NORMAL: %lu **********\n\n", nSubsidy);
+		        return nSubsidy + nFees;
+		    }else
+		    {
+		    printf("\n\n********** RECOMPENSA LIMITADA A: %lu **********\n\n", nSubsidy);
+		        return nSubsidy + nFees;
+		    }
+		}else
+		{
+		    printf("\n\n********** RECOMPENSA LIMITADA A: %lu **********\n\n", nSubsidy);
+		    return nSubsidy + nFees;
+		}
+        //NUEVO ALGORITMO
+        }
+        else
 	{
-    int64 nSubsidy = 5 * COIN;
-    return nSubsidy + nFees;
-    }
+            int64 nSubsidy = 5 * COIN;
+            return nSubsidy + nFees;
+        }
 }
 
 static const int64 nTargetTimespan = 1 * 60; // pointcoin: 1 minute
@@ -1018,16 +1046,6 @@ void CBlock::UpdateTime(const CBlockIndex* pindexPrev)
     if (fTestNet)
         nBits = GetNextWorkRequired(pindexPrev, this);
 }
-
-
-
-
-
-
-
-
-
-
 
 bool CTransaction::DisconnectInputs(CTxDB& txdb)
 {
@@ -1370,6 +1388,8 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
     unsigned int nTxPos = pindex->nBlockPos + ::GetSerializeSize(CBlock(), SER_DISK, CLIENT_VERSION) - 1 + GetSizeOfCompactSize(vtx.size());
 
     map<uint256, CTxIndex> mapQueuedChanges;
+    int64 nBlockTx = 0;
+    int64 nLastBlockTotalVout = 0;
     int64 nFees = 0;
     unsigned int nSigOps = 0;
     BOOST_FOREACH(CTransaction& tx, vtx)
@@ -1409,7 +1429,9 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
                     return DoS(100, error("ConnectBlock() : too many sigops"));
             }
 
+            ++nBlockTx;
             nFees += tx.GetValueIn(mapInputs)-tx.GetValueOut();
+            nLastBlockTotalVout = nLastBlockTotalVout+tx.GetValueOut();
 
             if (!tx.ConnectInputs(mapInputs, mapQueuedChanges, posThisTx, pindex, true, false, fStrictPayToScriptHash))
                 return false;
@@ -1418,6 +1440,10 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
         mapQueuedChanges[hashTx] = CTxIndex(posThisTx, tx.vout.size());
     }
 
+    nLastBlockTx = nBlockTx;
+    nLastBlockTotalVout = nLastBlockTotalVout/100000000;
+    
+
     // Write queued txindex changes
     for (map<uint256, CTxIndex>::iterator mi = mapQueuedChanges.begin(); mi != mapQueuedChanges.end(); ++mi)
     {
@@ -1425,7 +1451,10 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
             return error("ConnectBlock() : UpdateTxIndex failed");
     }
 
-    if (vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees))
+    printf("\n\nVALOR TOTAL DE TRANSACCIONES: %lu\n", nLastBlockTotalVout);
+    printf("TOTAL DE TRANSACCIONES: %lu\n\n", nLastBlockTx);
+
+    if (vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees, nLastBlockTx, nLastBlockTotalVout))
         return false;
 
     // Update block index on disk without changing it in memory.
@@ -1917,13 +1946,6 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     return true;
 }
 
-
-
-
-
-
-
-
 bool CheckDiskSpace(uint64 nAdditionalBytes)
 {
     uint64 nFreeBytesAvailable = filesystem::space(GetDataDir()).available;
@@ -2030,15 +2052,23 @@ bool LoadBlockIndex(bool fAllowNew)
 
         if (fTestNet)
         {
-            block.nTime    = 1478892074;
+            block.nTime    = 1478902744;
             block.nNonce   = 162136;
         }
 
         //// debug print
-        printf("%s\n", block.GetHash().ToString().c_str());
-        printf("%s\n", hashGenesisBlock.ToString().c_str());
-        printf("%s\n", block.hashMerkleRoot.ToString().c_str());
+        printf("%s Block hashed\n", block.GetHash().ToString().c_str());
+        printf("%s Genesis block\n", hashGenesisBlock.ToString().c_str());
+        printf("%s Valid merkel\n", block.hashMerkleRoot.ToString().c_str());
+        
+        //Bloque genesis de mainnet
         assert(block.hashMerkleRoot == uint256("0x58e6554346cfe35ec3f7b201b928d75beedac9d97857bd88e65cdb3cc2af8045"));
+        
+        if (fTestNet)
+        {
+            assert(block.hashMerkleRoot == uint256("0x58e6554346cfe35ec3f7b201b928d75beedac9d97857bd88e65cdb3cc2af8045"));
+            printf("\n\nTRABAJANDO EN TESTNET\n\n");
+        }
 
         // If genesis block hash does not match, then generate new genesis hash.
         if (false && block.GetHash() != hashGenesisBlock)
@@ -3370,6 +3400,9 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
 {
     CBlockIndex* pindexPrev = pindexBest;
 
+    //Variables TEST
+    uint64 nLastBlockTotalVout = 0;
+
     // Create new block
     auto_ptr<CBlock> pblock(new CBlock());
     if (!pblock.get())
@@ -3484,7 +3517,11 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
             if (!tx.FetchInputs(txdb, mapTestPoolTmp, false, true, mapInputs, fInvalid))
                 continue;
 
+            //VARIABLES TEST
+            nLastBlockTotalVout = nLastBlockTotalVout+tx.GetValueOut();
+
             int64 nTxFees = tx.GetValueIn(mapInputs)-tx.GetValueOut();
+
             if (nTxFees < nMinFee)
                 continue;
 
@@ -3525,7 +3562,13 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
         printf("CreateNewBlock(): total size %lu\n", nBlockSize);
 
     }
-    pblock->vtx[0].vout[0].nValue = GetBlockValue(pindexPrev->nHeight+1, nFees);
+
+    nLastBlockTotalVout = nLastBlockTotalVout/100000000;
+
+    printf("\n\nVALOR TOTAL DE TRANSACCIONES: %lu\n", nLastBlockTotalVout);
+    printf("TOTAL DE TRANSACCIONES: %lu\n\n", nLastBlockTx);
+
+    pblock->vtx[0].vout[0].nValue = GetBlockValue(pindexPrev->nHeight+1, nFees, nLastBlockTx, nLastBlockTotalVout);
 
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
