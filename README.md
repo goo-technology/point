@@ -5,10 +5,7 @@ Se ha preminado una fuerte cantidad de monedas que serán distribuidas entre el 
 Detalles de la moneda
 
 	* Algoritmo PoW: Scrypt
-	* Recompensa por bloque:
-	  1,000,000,000 en el bloque 2
-	  5 hasta el bloque 50,000
-	  a partir del bloque 50,001 (altura del bloque / 100,000)
+	* Recompensa por bloque: Política monetaria dinámica
 	* Tiempo por bloque: 15 segundos
 	* Reajuste de dificultad: cada 4 bloques
 	* Starting difficulty: 0.00024414
